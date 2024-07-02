@@ -37,10 +37,62 @@ jobs:
         comparison-method: contains
         timeout: 10
         max-score: 10
+    - name: Prueba 3
+      id: prueba-3
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Prueba 3
+        setup-command: "./instalar.sh"
+        command: "./correr.sh USD AUD 100"
+        input: ''
+        expected-output: La cantidad en AUD es 150
+        comparison-method: contains
+        timeout: 10
+        max-score: 10
+    - name: Prueba 4
+      id: prueba-4
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Prueba 4
+        setup-command: "./instalar.sh"
+        command: "./correr.sh EUR USD 100"
+        input: ''
+        expected-output: La cantidad en USD es 107
+        comparison-method: contains
+        timeout: 10
+        max-score: 10
+    - name: Prueba 5
+      id: prueba-5
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Prueba 5
+        setup-command: "./instalar.sh"
+        command: "./correr.sh EUR GBP 100"
+        input: ''
+        expected-output: La cantidad en GBP es 85
+        comparison-method: contains
+        timeout: 10
+        max-score: 10
+    - name: Prueba 6
+      id: prueba-6
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Prueba 6
+        setup-command: "./instalar.sh"
+        command: "./correr.sh EUR AUD 100"
+        input: ''
+        expected-output: La cantidad en AUD es 161
+        comparison-method: contains
+        timeout: 10
+        max-score: 10
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
         PRUEBA-1_RESULTS: "${{steps.prueba-1.outputs.result}}"
         PRUEBA-2_RESULTS: "${{steps.prueba-2.outputs.result}}"
+        PRUEBA-3_RESULTS: "${{steps.prueba-3.outputs.result}}"
+        PRUEBA-4_RESULTS: "${{steps.prueba-4.outputs.result}}"
+        PRUEBA-5_RESULTS: "${{steps.prueba-5.outputs.result}}"
+        PRUEBA-6_RESULTS: "${{steps.prueba-6.outputs.result}}"
       with:
-        runners: prueba-1,prueba-2
+        runners: prueba-1,prueba-2,prueba-3,prueba-4,prueba-5,prueba-6
