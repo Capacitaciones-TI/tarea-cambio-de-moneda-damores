@@ -1,0 +1,46 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Prueba 1
+      id: prueba-1
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Prueba 1
+        setup-command: "./instalar.sh"
+        command: "./correr.sh USD EUR 100"
+        input: ''
+        expected-output: La cantidad en EUR es 93
+        comparison-method: contains
+        timeout: 10
+        max-score: 10
+    - name: Prueba 2
+      id: prueba-2
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Prueba 2
+        setup-command: "./instalar.sh"
+        command: "./correr.sh USD GBP 100"
+        input: ''
+        expected-output: La cantidad en GBP es 79
+        comparison-method: contains
+        timeout: 10
+        max-score: 10
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        PRUEBA-1_RESULTS: "${{steps.prueba-1.outputs.result}}"
+        PRUEBA-2_RESULTS: "${{steps.prueba-2.outputs.result}}"
+      with:
+        runners: prueba-1,prueba-2
