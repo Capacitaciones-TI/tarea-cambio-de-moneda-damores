@@ -1,0 +1,1 @@
+./pseint/bin/pseint tarea.psc --input=$1 --input=$2 --input=$3
